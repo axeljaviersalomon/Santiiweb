@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Santiago Nievas — script.js
+   Santiago Nievas, script.js
    Sin dependencias. Patrón IIFE (sin módulos ES) para que funcione abriendo
    index.html con doble clic. Cada init corre aislado en safe(): si uno falla,
    el resto sigue funcionando.

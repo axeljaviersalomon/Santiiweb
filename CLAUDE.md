@@ -10,14 +10,14 @@ Rediseño total del sitio anterior (`../index.html` + `../pagos.css`, que quedan
 - **Animar solo `transform` y `opacity`.** Respetar `prefers-reduced-motion` (bloque al final de `styles.css` + chequeos `prefersReduced()` en JS).
 - **El contenido va hardcodeado en el HTML;** JS solo lo mejora. Si JS falla, la página se lee igual (red de seguridad: `.js:not(.reveal-on) [data-reveal]` muestra todo a los 6 s).
 - Cada init de JS corre envuelto en `safe(fn, nombre)`: si uno falla, los demás siguen.
-- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261002`).
+- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261003`).
 - `.htaccess` en la raíz: HTML/CSS/JS sin caché, imágenes 1 mes (Apache/LiteSpeed).
 - Textos en **español argentino (voseo)**, conservados del sitio original. No inventar copy de marketing.
 
 ## Estructura
 ```
 sitio/
-  index.html        Inicio: héroe con frase interactiva "Tengo [x] y necesito [y]" → propuesta + form rápido WhatsApp, marquesina, problemas, CTA
+  index.html        Inicio: héroe centrado, sin logo, con frase interactiva "Tengo [x] y necesito [y]" → propuesta + form rápido WhatsApp, marquesina, problemas, CTA
   servicios.html    Qué hago (4 servicios) + Cómo trabajamos (4 pasos) + formas de pago
   perfil.html       Bento: SAP Basis, +4 años, certificación (Credly), incidentes, desarrollador, código, UTN + frase
   presupuesto.html  Cotizador (servicio / tamaño / plazo → estimación en vivo) + datos → WhatsApp  ← FORMULARIO PRINCIPAL
@@ -44,8 +44,8 @@ Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están 
 
 ## Diseño
 - Paleta del logo: navy `#1D2837` / fondos `#070D16`–`#162336`, oro `#D1A33D` (+ `#E6C987`), marfil `#F6F4EF`. Oro como texto sobre fondo claro → usar `--gold-ink #85621A` (contraste AA).
-- Tipografías (Google Fonts): **Outfit** (títulos, parecida al logotipo), **Manrope** (texto), **JetBrains Mono** (etiquetas).
-- Motivo de marca: **esquina cortada + cuña dorada** en las tarjetas (`.card`, `--cut`), que retoma la cuña del isotipo. La retícula tipo plano (`.blueprint`) va en los héroes.
+- Tipografía: **Helvetica** (Helvetica Neue, Arial de respaldo) en todo el sitio, sin fuentes web. Sin guiones largos (—) ni numeración 01/02; solo se numeran los 4 pasos de "Cómo trabajamos".
+- Motivo de marca: **esquina cortada + cuña dorada** en las tarjetas (`.card`, `--cut`), que retoma la cuña del isotipo. Los héroes van centrados y sin retícula decorativa. Botones cuadrados (`border-radius: 0`) con hover clásico (solo cambia el fondo).
 - Breakpoints de referencia: 375 / 768 / 960 (nav de escritorio) / 1000 (cotizador en 2 columnas) / 1440.
 
 ## Animaciones

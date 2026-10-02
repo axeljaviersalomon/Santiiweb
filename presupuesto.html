@@ -11,12 +11,9 @@
 <meta property="og:description" content="Calculá al instante una estimación para tu web, tienda, automatización, sistema a medida o soporte SAP, y enviá tu pedido por WhatsApp.">
 <meta property="og:image" content="assets/brand/logo-completo.webp">
 <link rel="icon" type="image/png" href="assets/brand/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261002">
+<link rel="stylesheet" href="styles.css?v=20261003">
 <script>(function(h){h.classList.add('js');try{var s=sessionStorage;if(s.getItem('sn-nav')){h.classList.add('entering','no-pl');s.removeItem('sn-nav')}else if(s.getItem('sn-seen')){h.classList.add('no-pl')}s.setItem('sn-seen','1')}catch(e){h.classList.add('no-pl')}})(document.documentElement);</script>
-<script src="script.js?v=20261002" defer></script>
+<script src="script.js?v=20261003" defer></script>
 </head>
 <body data-page="presupuesto">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -88,7 +85,7 @@
 </div>
 
 <main id="main">
-  <section class="hero hero-page blueprint" aria-labelledby="hero-title">
+  <section class="hero hero-page" aria-labelledby="hero-title">
     <div class="glow glow-gold" data-parallax="-0.15" aria-hidden="true"></div>
     <div class="wrap">
       <p class="eyebrow on-dark" data-reveal="fade">Presupuesto</p>
@@ -101,7 +98,7 @@
     <div class="wrap quote">
       <form class="form" id="quoteForm" novalidate data-reveal>
         <fieldset class="quote-step choice">
-          <legend class="step-title"><span>01</span>¿Qué necesitás?</legend>
+          <legend class="step-title">¿Qué necesitás?</legend>
           <div class="choice-list" id="svcList">
             <div class="opt-chip"><input type="radio" name="servicio" id="s-web" value="web" checked><label for="s-web">Página web</label></div>
             <div class="opt-chip"><input type="radio" name="servicio" id="s-tienda" value="tienda"><label for="s-tienda">Tienda online</label></div>
@@ -113,7 +110,7 @@
         </fieldset>
 
         <fieldset class="quote-step choice">
-          <legend class="step-title"><span>02</span>¿De qué tamaño?</legend>
+          <legend class="step-title">¿De qué tamaño?</legend>
           <div class="choice-list stack" id="sizeList">
             <div class="opt-chip"><input type="radio" name="tamano" id="z-0" value="0" checked><label for="z-0">Landing de una página<small>USD 600 a 1.000</small></label></div>
             <div class="opt-chip"><input type="radio" name="tamano" id="z-1" value="1"><label for="z-1">Web institucional, hasta 6 secciones<small>USD 1.100 a 2.000</small></label></div>
@@ -122,7 +119,7 @@
         </fieldset>
 
         <fieldset class="quote-step choice" id="timeStep">
-          <legend class="step-title"><span>03</span>¿Para cuándo?</legend>
+          <legend class="step-title">¿Para cuándo?</legend>
           <div class="choice-list" id="timeList">
             <div class="opt-chip"><input type="radio" name="plazo" id="t-flex" value="flex"><label for="t-flex">Flexible<small>más de 2 meses</small></label></div>
             <div class="opt-chip"><input type="radio" name="plazo" id="t-normal" value="normal" checked><label for="t-normal">Normal<small>1 a 2 meses</small></label></div>
@@ -132,7 +129,7 @@
         </fieldset>
 
         <div class="quote-step">
-          <p class="step-title"><span>04</span>Tus datos</p>
+          <p class="step-title">Tus datos</p>
           <div class="grid-2">
             <div class="field">
               <label for="q-nombre">Nombre</label>
@@ -159,7 +156,7 @@
             <textarea class="input" id="q-detalle" name="detalle" rows="5" maxlength="1200" placeholder="Ej.: tengo una panadería y quiero una web con catálogo y botón de WhatsApp." required data-min="10" data-label="qué necesitás" data-msg="Contame qué necesitás, aunque sea en una línea." aria-describedby="q-detalle-err"></textarea>
             <p class="field-error" id="q-detalle-err" aria-live="polite"></p>
           </div>
-          <button class="btn btn-wa btn-block" type="submit" data-magnetic>
+          <button class="btn btn-wa btn-block" type="submit">
             <span class="btn-label"><svg aria-hidden="true"><use href="#i-wa"/></svg>Enviar pedido por WhatsApp</span>
             <span class="btn-state loading" aria-hidden="true"><span class="spinner"></span>Preparando tu pedido…</span>
             <span class="btn-state done" aria-hidden="true"><svg><use href="#i-check"/></svg>¡Listo! Abriendo WhatsApp</span>
