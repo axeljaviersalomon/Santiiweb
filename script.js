@@ -485,7 +485,8 @@
     }
     function planHtml(key) {
       var p = PLANS[key];
-      return '<h3>' + esc(p.title) + '</h3>' +
+      return '<p class="eyebrow">Mi propuesta para vos</p>' +
+        '<h3>' + esc(p.title) + '</h3>' +
         '<p class="plan-intro">' + esc(p.intro) + '</p>' +
         '<dl class="incl">' + p.items.map(function (it) { return '<div><dt>' + esc(it[0]) + '</dt><dd>' + esc(it[1]) + '</dd></div>'; }).join('') + '</dl>' +
         '<p class="plan-first"><b>Cómo arrancamos.</b> ' + esc(p.first) + '</p>' +

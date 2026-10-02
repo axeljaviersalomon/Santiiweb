@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Perfil · Santiago Nievas</title>
 <meta name="description" content="Consultor SAP Basis certificado (SAP HANA 2.0) con más de 4 años de experiencia y desarrollador Java, Python y web. Técnico en Programación, UTN.">
-<meta name="theme-color" content="#0D1A2E">
+<meta name="theme-color" content="#070D16">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Perfil · Santiago Nievas">
 <meta property="og:description" content="Consultor SAP Basis certificado (SAP HANA 2.0) con más de 4 años de experiencia y desarrollador Java, Python y web. Técnico en Programación, UTN.">
@@ -13,10 +13,10 @@
 <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261004">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css?v=20261002">
 <script>(function(h){h.classList.add('js');try{var s=sessionStorage;if(s.getItem('sn-nav')){h.classList.add('entering','no-pl');s.removeItem('sn-nav')}else if(s.getItem('sn-seen')){h.classList.add('no-pl')}s.setItem('sn-seen','1')}catch(e){h.classList.add('no-pl')}})(document.documentElement);</script>
-<script src="script.js?v=20261004" defer></script>
+<script src="script.js?v=20261002" defer></script>
 </head>
 <body data-page="perfil">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -62,7 +62,6 @@
     </a>
     <nav class="nav" aria-label="Principal">
       <ul>
-        <li><a href="index.html">Inicio</a></li>
         <li><a href="servicios.html">Servicios</a></li>
         <li><a href="perfil.html" aria-current="page">Perfil</a></li>
         <li><a href="presupuesto.html">Presupuesto</a></li>
@@ -89,9 +88,10 @@
 </div>
 
 <main id="main">
-  <section class="hero hero-page" aria-labelledby="hero-title">
+  <section class="hero hero-page blueprint" aria-labelledby="hero-title">
     <div class="glow glow-gold" data-parallax="-0.15" aria-hidden="true"></div>
     <div class="wrap">
+      <p class="eyebrow on-dark" data-reveal="fade">Perfil</p>
       <h1 class="display" id="hero-title" data-split>Dos especialidades, una misma forma de trabajar.</h1>
       <p class="lead" data-reveal style="--d:4">Conozco cómo funciona una empresa por dentro y sé construir la herramienta que necesita.</p>
     </div>
@@ -101,8 +101,8 @@
     <div class="wrap">
       <div class="bento">
         <article class="card card-dark b-sap spot" data-reveal>
-          <h2 class="h3">El sistema funcionando. Y cuando falla, la causa rápido.</h2>
-          <p class="script">Consultor SAP Basis</p>
+          <p class="eyebrow">01 — Consultor SAP Basis</p>
+          <h2 class="h3" style="font-size:clamp(1.6rem,2.6vw,2.2rem)">El sistema funcionando. Y cuando falla, la causa rápido.</h2>
           <p class="muted">Trabajo en soporte AMS para empresas que dependen de SAP todos los días. Mi trabajo es que el sistema funcione y, cuando algo falla, encontrar la causa rápido.</p>
           <ul class="ticks">
             <li>Monitoreo de jobs en segundo plano y logs del sistema</li>
@@ -114,6 +114,7 @@
         </article>
 
         <article class="card years b-years" data-reveal style="--d:1">
+          <p class="eyebrow" style="color:var(--navy)">Experiencia</p>
           <div>
             <p class="big"><span aria-hidden="true">+</span><span data-count="4">4</span></p>
             <p>años de experiencia como consultor SAP Basis</p>
@@ -121,6 +122,7 @@
         </article>
 
         <article class="card card-dark b-cert" data-reveal>
+          <p class="eyebrow">SAP 2022</p>
           <div class="cert-row">
             <span class="seal" aria-hidden="true">SAP<small>2022</small></span>
             <div><b>SAP Certified Technology Associate, SAP HANA 2.0 SPS05</b><span>Certificado por SAP en 2022.</span></div>
@@ -129,7 +131,7 @@
         </article>
 
         <article class="card b-incident" data-reveal style="--d:1">
-          <h2 class="h3">Cómo resuelvo un incidente</h2>
+          <p class="eyebrow">Cómo resuelvo un incidente</p>
           <ol class="incident">
             <li><b>Detecto</b><span>El monitoreo marca un proceso que falló, antes de que lo note un usuario.</span></li>
             <li><b>Analizo</b><span>Reviso logs y procesos hasta encontrar la causa real, no solo el síntoma.</span></li>
@@ -139,8 +141,8 @@
         </article>
 
         <article class="card b-dev spot" data-reveal>
-          <h2 class="h3">Código claro, probado y fácil de mantener.</h2>
-          <p class="script">Desarrollador de software</p>
+          <p class="eyebrow">02 — Desarrollador de software</p>
+          <h2 class="h3" style="font-size:clamp(1.6rem,2.6vw,2.2rem)">Código claro, probado y fácil de mantener.</h2>
           <p class="muted">Desarrollo backend, web y móvil con foco en código claro, probado y fácil de mantener. Aplico la misma disciplina que en SAP: documentar, versionar y no dejar nada librado a la suerte.</p>
           <ul class="ticks">
             <li>Backend con Java 17 y Spring Boot: APIs REST, JPA/Hibernate, inyección de dependencias</li>
@@ -152,7 +154,7 @@
         </article>
 
         <article class="card card-dark b-code" data-reveal style="--d:1">
-          <h2 class="h3">Así se ve un endpoint de un sistema de pedidos</h2>
+          <p class="eyebrow">Así se ve un endpoint de un sistema de pedidos</p>
 <pre class="code" tabindex="0" aria-label="Ejemplo de código Java"><span class="a">@GetMapping</span>(<span class="s">"/pedidos/{id}"</span>)
 <span class="k">public</span> PedidoView buscar(<span class="a">@PathVariable</span> Long id) {
   <span class="k">return</span> pedidos.findById(id)
@@ -166,7 +168,8 @@
           <div class="edu">
             <span class="edu-badge" aria-hidden="true">UTN</span>
             <div>
-              <h2 class="h3">Tecnicatura Universitaria en Programación</h2>
+              <p class="eyebrow">Formación</p>
+              <h2 class="h3" style="margin-top:8px">Tecnicatura Universitaria en Programación</h2>
               <p class="muted">Universidad Tecnológica Nacional</p>
             </div>
           </div>
@@ -185,11 +188,12 @@
   <section class="section cta-band" aria-labelledby="cta-title">
     <div class="wrap cta-inner">
       <div>
-        <h2 class="h2" id="cta-title" data-split>¿Lo charlamos 30 minutos?</h2>
+        <p class="eyebrow" data-reveal="fade">Siguiente paso</p>
+        <h2 class="h2" id="cta-title" data-split style="margin-top:16px">¿Lo charlamos 30 minutos?</h2>
       </div>
-      <div class="hero-actions on-light" data-reveal style="--d:2">
-        <a class="btn btn-ink" href="contacto.html#agenda"><span class="btn-label">Agendar una consulta<svg class="i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
-        <a class="btn btn-ghost" href="servicios.html"><span class="btn-label">Ver servicios</span></a>
+      <div class="hero-actions on-light" data-reveal style="--d:2;margin-top:0">
+        <a class="btn btn-ink" href="contacto.html#agenda" data-magnetic><span class="btn-label">Agendar una consulta<svg class="i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="btn btn-ghost" href="servicios.html" data-magnetic><span class="btn-label">Ver servicios</span></a>
       </div>
     </div>
   </section>
@@ -197,23 +201,35 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-top">
-      <a class="footer-brand" href="index.html" aria-label="Santiago Nievas, inicio"><img src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></a>
-      <nav class="footer-nav" aria-label="Pie de página">
-        <a href="index.html">Inicio</a><a href="servicios.html">Servicios</a><a href="perfil.html">Perfil</a><a href="presupuesto.html">Presupuesto</a><a href="contacto.html">Contacto</a>
-      </nav>
-      <div class="footer-contact">
-        <a class="js-wa" href="https://wa.me/5491168489382" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
-        <a class="js-tel js-tel-text" href="tel:+5491168489382">+54 9 11 6848-9382</a>
-        <a class="js-mail" href="#" data-cfg="email">Email</a>
-        <a class="js-linkedin" href="#" target="_blank" rel="noopener" data-cfg="linkedin">LinkedIn</a>
-        <a class="js-github" href="#" target="_blank" rel="noopener" data-cfg="github">GitHub</a>
-        <a href="https://www.credly.com/badges/6f3ff51b-3b55-488f-a8b8-64bc88a816f0" target="_blank" rel="noopener">Certificación SAP</a>
+    <div class="footer-cta">
+      <p class="eyebrow on-dark">¿Hablamos?</p>
+      <p class="display"><a href="contacto.html">Escribime<svg aria-hidden="true"><use href="#i-arrow-ur"/></svg></a></p>
+      <p class="lead">Escribime por donde te quede más cómodo. Si es por WhatsApp, contame en un mensaje qué necesitás y arrancamos desde ahí.</p>
+    </div>
+    <div class="footer-grid">
+      <div><img class="footer-logo" src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></div>
+      <div>
+        <h4>Sitio</h4>
+        <ul><li><a href="index.html">Inicio</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="perfil.html">Perfil</a></li><li><a href="presupuesto.html">Presupuesto</a></li><li><a href="contacto.html">Contacto</a></li></ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a class="js-wa" href="https://wa.me/5491168489382" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a class="js-tel" href="tel:+5491168489382">+54 9 11 6848-9382</a></li>
+          <li data-cfg="email"><a class="js-mail" href="#">Email</a></li>
+          <li data-cfg="linkedin"><a class="js-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li data-cfg="github"><a class="js-github" href="#" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Certificación SAP</h4>
+        <ul><li><a href="https://www.credly.com/badges/6f3ff51b-3b55-488f-a8b8-64bc88a816f0" target="_blank" rel="noopener">Ver en Credly</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Santiago Nievas · Buenos Aires, Argentina</span>
-      <span>Desarrollado junto con <a href="https://axelsalomon.com" target="_blank" rel="noopener">Axel Salomón</a></span>
+      <span>Hecho a medida, sin plantillas.</span>
     </div>
   </div>
 </footer>

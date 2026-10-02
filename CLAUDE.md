@@ -10,14 +10,14 @@ Rediseño total del sitio anterior (`../index.html` + `../pagos.css`, que quedan
 - **Animar solo `transform` y `opacity`.** Respetar `prefers-reduced-motion` (bloque al final de `styles.css` + chequeos `prefersReduced()` en JS).
 - **El contenido va hardcodeado en el HTML;** JS solo lo mejora. Si JS falla, la página se lee igual (red de seguridad: `.js:not(.reveal-on) [data-reveal]` muestra todo a los 6 s).
 - Cada init de JS corre envuelto en `safe(fn, nombre)`: si uno falla, los demás siguen.
-- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261004`).
+- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261002`).
 - `.htaccess` en la raíz: HTML/CSS/JS sin caché, imágenes 1 mes (Apache/LiteSpeed).
 - Textos en **español argentino (voseo)**, conservados del sitio original. No inventar copy de marketing.
 
 ## Estructura
 ```
 sitio/
-  index.html        Inicio: héroe con frase interactiva "Tengo [x] y necesito [y]" → propuesta + form rápido WhatsApp, especialidades, problemas, CTA
+  index.html        Inicio: héroe con frase interactiva "Tengo [x] y necesito [y]" → propuesta + form rápido WhatsApp, marquesina, problemas, CTA
   servicios.html    Qué hago (4 servicios) + Cómo trabajamos (4 pasos) + formas de pago
   perfil.html       Bento: SAP Basis, +4 años, certificación (Credly), incidentes, desarrollador, código, UTN + frase
   presupuesto.html  Cotizador (servicio / tamaño / plazo → estimación en vivo) + datos → WhatsApp  ← FORMULARIO PRINCIPAL
@@ -43,20 +43,15 @@ Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están 
 - Hay tres formularios: rápido (inicio), presupuesto y agenda. `presupuesto.html?s=web|tienda|auto|sistema|sap|nose` preselecciona el servicio.
 
 ## Diseño
-- Paleta del logo: navy `#1D2837`, oro `#D1A33D` (+ `#E6C987`), marfil `#F6F4EF`. Fondos oscuros en **azul profundo** (`--navy-950 #0D1A2E` … `--navy-800 #1E3253`), nunca negro plano. Los héroes usan un degradé azul.
-- **Texto solo en blanco o tinta** (`--muted` y `--on-dark-muted` apuntan a esos colores). El oro es para acentos (botón principal, viñetas, filetes), no para texto.
-- **Dos tipografías:** **Outfit** (títulos y texto) y **Caveat** (`.script`, `.step-n`: acentos manuscritos puntuales). Nunca una monoespaciada de marca; el bloque de código de Perfil usa la del sistema.
-- **Sin subtítulos arriba de los títulos** (no hay `.eyebrow`), sin rayas largas (—) y sin numeración 01, 02… Los procesos se marcan con "Paso N" en Caveat (Cómo trabajamos, cotizador, agenda).
-- Héroes centrados, sin logo ni retícula de fondo. Sin carruseles: las especialidades son una lista fija de etiquetas.
-- Formas casi cuadradas: `--r-sm 4px`, `--r-md 6px`, `--r-lg 8px`. Botones con hover sutil (capa por opacidad). Se conserva la esquina cortada de las tarjetas (`.card`, `--cut`).
-- Nav: placa suave al hover y placa dorada con filete para la página actual (`aria-current`). En el menú móvil, cuadradito dorado.
-- Pie compacto: logo, links, contacto y créditos ("Desarrollado junto con Axel Salomón" → axelsalomon.com).
-- Espaciado mobile first con tokens: `--stack` (título → bajada), `--head-gap` (encabezado → contenido), `--card-pad`. Breakpoints: 375 / 520 / 640 / 768 / 960 (nav de escritorio) / 1000 (cotizador en 2 columnas) / 1440.
+- Paleta del logo: navy `#1D2837` / fondos `#070D16`–`#162336`, oro `#D1A33D` (+ `#E6C987`), marfil `#F6F4EF`. Oro como texto sobre fondo claro → usar `--gold-ink #85621A` (contraste AA).
+- Tipografías (Google Fonts): **Outfit** (títulos, parecida al logotipo), **Manrope** (texto), **JetBrains Mono** (etiquetas).
+- Motivo de marca: **esquina cortada + cuña dorada** en las tarjetas (`.card`, `--cut`), que retoma la cuña del isotipo. La retícula tipo plano (`.blueprint`) va en los héroes.
+- Breakpoints de referencia: 375 / 768 / 960 (nav de escritorio) / 1000 (cotizador en 2 columnas) / 1440.
 
 ## Animaciones
 - **Preloader** (solo en la primera visita de la sesión, `sessionStorage 'sn-seen'`): el isotipo se arma por capas (`mark-s-light`, `mark-g-bar`, `mark-g-wedge`, `mark-g-bl`, separadas del PNG original con Pillow), entra el nombre, se dibuja la línea dorada y la pantalla sube. Todo en CSS keyframes (~2,3 s). El script inline del `<head>` decide `no-pl` / `entering` antes del primer pintado.
 - **Cortina entre páginas:** al hacer clic en un link interno, guarda `sn-nav` y baja la cortina (560 ms). La página nueva arranca tapada y la cortina se va (`.entering`). Con movimiento reducido no hay cortina.
-- Revelado por scroll (`data-reveal`, `--d` para escalonar), titulares por palabra (`data-split`), parallax (`data-parallax="factor"`), spotlight (`.spot`), contador (`data-count`), header que se oculta al bajar, barra de progreso. (El isotipo con capas del héroe y los botones magnéticos se quitaron; `initTilt` queda inactivo sin `[data-tilt]`.)
+- Revelado por scroll (`data-reveal`, `--d` para escalonar), titulares por palabra (`data-split`), parallax (`data-parallax="factor"`), isotipo del héroe que sigue al cursor (`data-tilt` + `data-depth`), botones magnéticos (`data-magnetic`), spotlight (`.spot`), contador (`data-count`), header que se oculta al bajar, barra de progreso.
 
 ## Pendiente / decisiones del usuario
 - Email, LinkedIn y GitHub reales (hoy ocultos).
