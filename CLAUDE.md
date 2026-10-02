@@ -1,0 +1,64 @@
+# Sitio Santiago Nievas — CLAUDE.md
+
+Sitio estático (HTML + CSS + JS vanilla) de **Santiago Nievas**, programador y consultor SAP Basis (Buenos Aires).
+Rediseño total del sitio anterior (`../index.html` + `../pagos.css`, que quedan solo como **referencia de textos**; no se tocan).
+
+## Reglas duras (no romper)
+- **Sin build, sin npm, sin frameworks.** Tiene que funcionar abriendo `index.html` con doble clic y subiendo la carpeta a cualquier hosting estático.
+- **Sin backend:** nada de pagos, login, admin ni llamadas a APIs (el sitio viejo tenía MercadoPago, agenda en el servidor y un panel admin; todo eso se descartó a propósito).
+- **JS en IIFE con `<script defer>`**, nunca `type="module"` (rompe en `file://`).
+- **Animar solo `transform` y `opacity`.** Respetar `prefers-reduced-motion` (bloque al final de `styles.css` + chequeos `prefersReduced()` en JS).
+- **El contenido va hardcodeado en el HTML;** JS solo lo mejora. Si JS falla, la página se lee igual (red de seguridad: `.js:not(.reveal-on) [data-reveal]` muestra todo a los 6 s).
+- Cada init de JS corre envuelto en `safe(fn, nombre)`: si uno falla, los demás siguen.
+- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261002`).
+- `.htaccess` en la raíz: HTML/CSS/JS sin caché, imágenes 1 mes (Apache/LiteSpeed).
+- Textos en **español argentino (voseo)**, conservados del sitio original. No inventar copy de marketing.
+
+## Estructura
+```
+sitio/
+  index.html        Inicio: héroe con frase interactiva "Tengo [x] y necesito [y]" → propuesta + form rápido WhatsApp, marquesina, problemas, CTA
+  servicios.html    Qué hago (4 servicios) + Cómo trabajamos (4 pasos) + formas de pago
+  perfil.html       Bento: SAP Basis, +4 años, certificación (Credly), incidentes, desarrollador, código, UTN + frase
+  presupuesto.html  Cotizador (servicio / tamaño / plazo → estimación en vivo) + datos → WhatsApp  ← FORMULARIO PRINCIPAL
+  contacto.html     Canales + agenda de consulta (turno por WhatsApp) + preguntas frecuentes
+  styles.css        Todo el CSS (tokens en :root)
+  script.js         Todo el JS
+  .htaccess
+  assets/brand/     Logos en WebP + capas del isotipo para animar + favicon.png
+```
+Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están **duplicados en las 5 páginas**: si cambiás uno, cambialo en todas. (`aria-current="page"` solo en la nav del header y del menú, no en el footer).
+
+## Constantes clave (inicio de `script.js`)
+- `WHATSAPP_NUMBER = '5491168489382'` — el número de todos los links de WhatsApp.
+- `CONTACT.phone` / `phoneLabel` = `+5491168489382` / `+54 9 11 6848-9382`.
+- `CONTACT.email`, `linkedin` y `github` están **vacíos a propósito** (en el sitio viejo eran placeholders). Si están vacíos, se ocultan los elementos con `data-cfg="email|linkedin|github"`. Para activarlos, completar el valor y listo.
+- `PRICING`, `TIMES`, `PLANS`: precios en USD, multiplicadores por plazo y textos de propuesta, copiados del sitio original.
+- `AGENDA`: lunes a viernes, 09–12 y 18–20 h, turnos de 30 min, 12 h de anticipación, 21 días hacia adelante, zona horaria UTC-3 fija (Argentina).
+
+## Formularios → WhatsApp
+- `buildMessage(intro, rows)`: **un renglón por campo** (`Campo: valor`); omite los vacíos y aplana los saltos de línea. Se codifica con `encodeURIComponent` en `waUrl()`.
+- `sendToWhatsApp(form, btn, text)`: botón **cargando (850 ms) → listo (650 ms) → `location.href = wa.me/...`**. Deja en `[data-status]` un link de respaldo "tocá acá".
+- Validación propia (sin `alert()`): `required`, `data-min`, `type="email"`, `data-phone` (8 a 15 dígitos), `data-msg` (mensaje cuando falta), `data-label`. Los errores van al `<p class="field-error">` referenciado por `aria-describedby`, con `aria-invalid`.
+- Hay tres formularios: rápido (inicio), presupuesto y agenda. `presupuesto.html?s=web|tienda|auto|sistema|sap|nose` preselecciona el servicio.
+
+## Diseño
+- Paleta del logo: navy `#1D2837` / fondos `#070D16`–`#162336`, oro `#D1A33D` (+ `#E6C987`), marfil `#F6F4EF`. Oro como texto sobre fondo claro → usar `--gold-ink #85621A` (contraste AA).
+- Tipografías (Google Fonts): **Outfit** (títulos, parecida al logotipo), **Manrope** (texto), **JetBrains Mono** (etiquetas).
+- Motivo de marca: **esquina cortada + cuña dorada** en las tarjetas (`.card`, `--cut`), que retoma la cuña del isotipo. La retícula tipo plano (`.blueprint`) va en los héroes.
+- Breakpoints de referencia: 375 / 768 / 960 (nav de escritorio) / 1000 (cotizador en 2 columnas) / 1440.
+
+## Animaciones
+- **Preloader** (solo en la primera visita de la sesión, `sessionStorage 'sn-seen'`): el isotipo se arma por capas (`mark-s-light`, `mark-g-bar`, `mark-g-wedge`, `mark-g-bl`, separadas del PNG original con Pillow), entra el nombre, se dibuja la línea dorada y la pantalla sube. Todo en CSS keyframes (~2,3 s). El script inline del `<head>` decide `no-pl` / `entering` antes del primer pintado.
+- **Cortina entre páginas:** al hacer clic en un link interno, guarda `sn-nav` y baja la cortina (560 ms). La página nueva arranca tapada y la cortina se va (`.entering`). Con movimiento reducido no hay cortina.
+- Revelado por scroll (`data-reveal`, `--d` para escalonar), titulares por palabra (`data-split`), parallax (`data-parallax="factor"`), isotipo del héroe que sigue al cursor (`data-tilt` + `data-depth`), botones magnéticos (`data-magnetic`), spotlight (`.spot`), contador (`data-count`), header que se oculta al bajar, barra de progreso.
+
+## Pendiente / decisiones del usuario
+- Email, LinkedIn y GitHub reales (hoy ocultos).
+- Foto de Santiago (el sitio viejo tenía un "Tu foto va acá"; el rediseño no la necesita, pero suma en Perfil).
+- Logo oficial de la UTN (hoy hay una insignia de texto "UTN").
+- Dominio: cuando esté, sumar `og:url`, `canonical` y una og:image absoluta.
+
+## Cómo probar
+`python -m http.server 8765` dentro de `sitio/` → http://localhost:8765/. También anda con doble clic en `index.html`.
+Revisar: consola sin errores, enviar los formularios vacíos y con datos inválidos, y que el link `wa.me` decodificado tenga un renglón por campo.
