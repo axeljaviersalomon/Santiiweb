@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contacto · Santiago Nievas</title>
 <meta name="description" content="Escribime por WhatsApp, llamame o agendá una consulta de 30 minutos sin cargo. Preguntas frecuentes sobre precios, plazos y pagos.">
-<meta name="theme-color" content="#070D16">
+<meta name="theme-color" content="#0D1A2E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Contacto · Santiago Nievas">
 <meta property="og:description" content="Escribime por WhatsApp, llamame o agendá una consulta de 30 minutos sin cargo. Preguntas frecuentes sobre precios, plazos y pagos.">
@@ -13,10 +13,10 @@
 <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261002">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=20261004">
 <script>(function(h){h.classList.add('js');try{var s=sessionStorage;if(s.getItem('sn-nav')){h.classList.add('entering','no-pl');s.removeItem('sn-nav')}else if(s.getItem('sn-seen')){h.classList.add('no-pl')}s.setItem('sn-seen','1')}catch(e){h.classList.add('no-pl')}})(document.documentElement);</script>
-<script src="script.js?v=20261002" defer></script>
+<script src="script.js?v=20261004" defer></script>
 </head>
 <body data-page="contacto">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -62,6 +62,7 @@
     </a>
     <nav class="nav" aria-label="Principal">
       <ul>
+        <li><a href="index.html">Inicio</a></li>
         <li><a href="servicios.html">Servicios</a></li>
         <li><a href="perfil.html">Perfil</a></li>
         <li><a href="presupuesto.html">Presupuesto</a></li>
@@ -88,10 +89,9 @@
 </div>
 
 <main id="main">
-  <section class="hero hero-page blueprint" aria-labelledby="hero-title">
+  <section class="hero hero-page" aria-labelledby="hero-title">
     <div class="glow glow-gold" data-parallax="-0.15" aria-hidden="true"></div>
     <div class="wrap">
-      <p class="eyebrow on-dark" data-reveal="fade">Contacto</p>
       <h1 class="display" id="hero-title" data-split>¿Hablamos?</h1>
       <p class="lead" data-reveal style="--d:3">Elegí una opción. Del otro lado te atiendo yo, sin vueltas.</p>
     </div>
@@ -122,22 +122,21 @@
 
   <section class="section dark" id="agenda" aria-labelledby="agenda-title">
     <div class="wrap agenda">
-      <div>
-        <p class="eyebrow" data-reveal="fade">01 — Agenda</p>
-        <h2 class="h2" id="agenda-title" data-split style="margin-top:16px">Agendá una consulta conmigo.</h2>
-        <p class="lead" data-reveal style="--d:2;margin-top:20px">Elegí el día y el horario que te queden cómodos. Charlamos 30 minutos sobre lo que necesitás y te digo cómo lo resolvería.</p>
+      <div class="agenda-intro">
+        <h2 class="h2" id="agenda-title" data-split>Agendá una consulta conmigo.</h2>
+        <p class="lead" data-reveal style="--d:2">Elegí el día y el horario que te queden cómodos. Charlamos 30 minutos sobre lo que necesitás y te digo cómo lo resolvería.</p>
         <ul class="agenda-points" data-reveal style="--d:3">
           <li><svg aria-hidden="true"><use href="#i-check"/></svg>Primera consulta sin cargo</li>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg>Por videollamada o por teléfono, como prefieras</li>
           <li><svg aria-hidden="true"><use href="#i-clock"/></svg>Horarios en hora de Argentina</li>
         </ul>
-        <p class="muted" data-reveal style="--d:4;margin-top:20px">¿Ninguno te sirve? Escribime al <a class="js-wa js-tel-text" href="https://wa.me/5491168489382" target="_blank" rel="noopener">+54 9 11 6848-9382</a> y lo coordinamos.</p>
+        <p class="muted" data-reveal style="--d:4">¿Ninguno te sirve? Escribime al <a class="js-wa js-tel-text" href="https://wa.me/5491168489382" target="_blank" rel="noopener">+54 9 11 6848-9382</a> y lo coordinamos.</p>
       </div>
 
       <form class="booking form" id="bookForm" novalidate data-reveal style="--d:2">
         <div class="field">
           <div class="row-between">
-            <p class="legend" id="days-label">1. Elegí el día</p>
+            <p class="legend" id="days-label"><span class="step-n">Paso 1</span>Elegí el día</p>
             <div class="days-nav">
               <button class="icon-btn" type="button" id="dayPrev" aria-label="Días anteriores"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button>
               <button class="icon-btn" type="button" id="dayNext" aria-label="Días siguientes"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button>
@@ -146,12 +145,12 @@
           <div class="days" id="days" role="group" aria-labelledby="days-label"></div>
         </div>
         <div class="field">
-          <p class="legend" id="slots-label">2. Elegí el horario <span class="opt" id="dayLabel"></span></p>
+          <p class="legend" id="slots-label"><span class="step-n">Paso 2</span>Elegí el horario <span class="opt" id="dayLabel"></span></p>
           <div id="slots" role="group" aria-labelledby="slots-label"></div>
           <p class="field-error" id="slot-err" aria-live="polite"></p>
         </div>
         <fieldset class="choice">
-          <legend class="legend">3. ¿Cómo preferís hablar?</legend>
+          <legend class="legend"><span class="step-n">Paso 3</span>¿Cómo preferís hablar?</legend>
           <div class="choice-list">
             <div class="opt-chip"><input type="radio" name="modalidad" id="m-video" value="Videollamada" checked><label for="m-video">Videollamada</label></div>
             <div class="opt-chip"><input type="radio" name="modalidad" id="m-tel" value="Llamada telefónica"><label for="m-tel">Llamada telefónica</label></div>
@@ -199,8 +198,8 @@
   <section class="section" id="preguntas" aria-labelledby="faq-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow" data-reveal="fade">02 — Preguntas frecuentes</p>
-        <h2 class="h2" id="faq-title" data-split>Precios, plazos y pagos.</h2>
+        <h2 class="h2" id="faq-title" data-split>Preguntas frecuentes.</h2>
+        <p class="lead" data-reveal style="--d:2">Precios, plazos y pagos, en pocas palabras.</p>
       </div>
       <div class="faq" data-reveal>
         <details><summary>¿Cuánto sale?<span class="plus" aria-hidden="true"></span></summary><p class="answer-text">En <a href="presupuesto.html">Calculá tu presupuesto</a> ves una estimación al instante. Después de charlarlo te paso un precio cerrado por escrito, antes de empezar. Los trabajos con plazo urgente tienen un recargo, porque implican reorganizar otros proyectos.</p></details>
@@ -216,35 +215,23 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-cta">
-      <p class="eyebrow on-dark">¿Hablamos?</p>
-      <p class="display"><a href="contacto.html">Escribime<svg aria-hidden="true"><use href="#i-arrow-ur"/></svg></a></p>
-      <p class="lead">Escribime por donde te quede más cómodo. Si es por WhatsApp, contame en un mensaje qué necesitás y arrancamos desde ahí.</p>
-    </div>
-    <div class="footer-grid">
-      <div><img class="footer-logo" src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></div>
-      <div>
-        <h4>Sitio</h4>
-        <ul><li><a href="index.html">Inicio</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="perfil.html">Perfil</a></li><li><a href="presupuesto.html">Presupuesto</a></li><li><a href="contacto.html">Contacto</a></li></ul>
-      </div>
-      <div>
-        <h4>Contacto</h4>
-        <ul>
-          <li><a class="js-wa" href="https://wa.me/5491168489382" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a class="js-tel" href="tel:+5491168489382">+54 9 11 6848-9382</a></li>
-          <li data-cfg="email"><a class="js-mail" href="#">Email</a></li>
-          <li data-cfg="linkedin"><a class="js-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li data-cfg="github"><a class="js-github" href="#" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Certificación SAP</h4>
-        <ul><li><a href="https://www.credly.com/badges/6f3ff51b-3b55-488f-a8b8-64bc88a816f0" target="_blank" rel="noopener">Ver en Credly</a></li></ul>
+    <div class="footer-top">
+      <a class="footer-brand" href="index.html" aria-label="Santiago Nievas, inicio"><img src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></a>
+      <nav class="footer-nav" aria-label="Pie de página">
+        <a href="index.html">Inicio</a><a href="servicios.html">Servicios</a><a href="perfil.html">Perfil</a><a href="presupuesto.html">Presupuesto</a><a href="contacto.html">Contacto</a>
+      </nav>
+      <div class="footer-contact">
+        <a class="js-wa" href="https://wa.me/5491168489382" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+        <a class="js-tel js-tel-text" href="tel:+5491168489382">+54 9 11 6848-9382</a>
+        <a class="js-mail" href="#" data-cfg="email">Email</a>
+        <a class="js-linkedin" href="#" target="_blank" rel="noopener" data-cfg="linkedin">LinkedIn</a>
+        <a class="js-github" href="#" target="_blank" rel="noopener" data-cfg="github">GitHub</a>
+        <a href="https://www.credly.com/badges/6f3ff51b-3b55-488f-a8b8-64bc88a816f0" target="_blank" rel="noopener">Certificación SAP</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Santiago Nievas · Buenos Aires, Argentina</span>
-      <span>Hecho a medida, sin plantillas.</span>
+      <span>Desarrollado junto con <a href="https://axelsalomon.com" target="_blank" rel="noopener">Axel Salomón</a></span>
     </div>
   </div>
 </footer>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Santiago Nievas · Programador y consultor SAP Basis</title>
 <meta name="description" content="Santiago Nievas. Consultor SAP Basis certificado y desarrollador de software en Buenos Aires: soporte SAP, sistemas a medida, automatizaciones y páginas web.">
-<meta name="theme-color" content="#070D16">
+<meta name="theme-color" content="#0D1A2E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Santiago Nievas · Programador y consultor SAP Basis">
 <meta property="og:description" content="Soporte SAP Basis, sistemas a medida, automatizaciones y páginas web. Buenos Aires, Argentina.">
@@ -13,10 +13,10 @@
 <link rel="icon" type="image/png" href="assets/brand/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261002">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=20261004">
 <script>(function(h){h.classList.add('js');try{var s=sessionStorage;if(s.getItem('sn-nav')){h.classList.add('entering','no-pl');s.removeItem('sn-nav')}else if(s.getItem('sn-seen')){h.classList.add('no-pl')}s.setItem('sn-seen','1')}catch(e){h.classList.add('no-pl')}})(document.documentElement);</script>
-<script src="script.js?v=20261002" defer></script>
+<script src="script.js?v=20261004" defer></script>
 </head>
 <body data-page="inicio">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -62,6 +62,7 @@
     </a>
     <nav class="nav" aria-label="Principal">
       <ul>
+        <li><a href="index.html" aria-current="page">Inicio</a></li>
         <li><a href="servicios.html">Servicios</a></li>
         <li><a href="perfil.html">Perfil</a></li>
         <li><a href="presupuesto.html">Presupuesto</a></li>
@@ -89,46 +90,34 @@
 
 <main id="main">
   <!-- HÉROE -->
-  <section class="hero hero-home blueprint" aria-labelledby="hero-title">
+  <section class="hero hero-home" aria-labelledby="hero-title">
     <div class="glow glow-gold" data-parallax="-0.15" aria-hidden="true"></div>
     <div class="glow glow-blue" data-parallax="0.1" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <p class="eyebrow on-dark" data-reveal="fade">Consultor SAP Basis &amp; desarrollador · Buenos Aires</p>
-          <h1 class="display" id="hero-title" data-split>Hola, soy Santiago.</h1>
-          <form class="sentence" id="sentence" data-reveal style="--d:4" aria-label="Contame qué necesitás">
-            <span class="soft">Tengo</span>
-            <span class="pick"><label class="sr-only" for="who">Tengo</label><select id="who" name="who">
-              <option>un emprendimiento</option>
-              <option>un comercio</option>
-              <option selected>una empresa</option>
-              <option>una PyME</option>
-              <option>un estudio profesional</option>
-            </select></span>
-            <span class="soft">y necesito</span>
-            <span class="pick second"><label class="sr-only" for="need">y necesito</label><select id="need" name="need">
-              <option value="web">una página web</option>
-              <option value="tienda">vender online</option>
-              <option value="auto" selected>automatizar tareas</option>
-              <option value="sistema">un sistema a medida</option>
-              <option value="sap">ayuda con SAP</option>
-              <option value="nose">ayuda con otra cosa</option>
-            </select></span><span class="soft">.</span>
-          </form>
-          <p class="lead hero-sub" data-reveal style="--d:6">Completá la frase y te cuento cómo te puedo ayudar. Del otro lado te atiendo yo, sin vueltas.</p>
-          <div class="hero-actions" data-reveal style="--d:7">
-            <a class="btn btn-gold" href="#propuesta" data-magnetic><span class="btn-label">Ver mi propuesta<svg class="i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
-            <a class="btn btn-ghost" href="presupuesto.html" data-magnetic><span class="btn-label">Calcular presupuesto</span></a>
-          </div>
-        </div>
-        <div class="hero-mark" data-tilt aria-hidden="true" data-reveal="scale" style="--d:2">
-          <span class="ring"></span>
-          <img src="assets/brand/mark-s-light.webp" alt="" width="256" height="256" data-depth="10">
-          <img src="assets/brand/mark-g-wedge.webp" alt="" width="256" height="256" data-depth="22">
-          <img src="assets/brand/mark-g-bar.webp" alt="" width="256" height="256" data-depth="16">
-          <img src="assets/brand/mark-g-bl.webp" alt="" width="256" height="256" data-depth="28">
-        </div>
+      <h1 class="display" id="hero-title" data-split>Hola, soy Santiago.</h1>
+      <form class="sentence" id="sentence" data-reveal style="--d:4" aria-label="Contame qué necesitás">
+        <span class="soft">Tengo</span>
+        <span class="pick"><label class="sr-only" for="who">Tengo</label><select id="who" name="who">
+          <option>un emprendimiento</option>
+          <option>un comercio</option>
+          <option selected>una empresa</option>
+          <option>una PyME</option>
+          <option>un estudio profesional</option>
+        </select></span>
+        <span class="soft">y necesito</span>
+        <span class="pick second"><label class="sr-only" for="need">y necesito</label><select id="need" name="need">
+          <option value="web">una página web</option>
+          <option value="tienda">vender online</option>
+          <option value="auto" selected>automatizar tareas</option>
+          <option value="sistema">un sistema a medida</option>
+          <option value="sap">ayuda con SAP</option>
+          <option value="nose">ayuda con otra cosa</option>
+        </select></span><span class="soft">.</span>
+      </form>
+      <p class="lead hero-sub" data-reveal style="--d:6">Completá la frase y te cuento cómo te puedo ayudar. Del otro lado te atiendo yo, sin vueltas.</p>
+      <div class="hero-actions" data-reveal style="--d:7">
+        <a class="btn btn-gold" href="#propuesta"><span class="btn-label">Ver mi propuesta<svg class="i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="btn btn-ghost" href="presupuesto.html"><span class="btn-label">Calcular presupuesto</span></a>
       </div>
       <div class="hero-meta" data-reveal="fade" style="--d:8">
         <span><span class="status-dot" aria-hidden="true"></span><b>Disponible</b> para proyectos nuevos</span>
@@ -143,13 +132,11 @@
   <section class="section" id="propuesta" aria-labelledby="prop-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow" data-reveal="fade">01 — Mi propuesta para vos</p>
-        <h2 class="h2" id="prop-title" data-split>Según lo que elegiste arriba.</h2>
+        <h2 class="h2" id="prop-title" data-split>Mi propuesta, según lo que elegiste.</h2>
       </div>
       <div class="answer">
         <article class="plan" data-reveal aria-live="polite">
           <div class="plan-body" id="plan">
-            <p class="eyebrow">Mi propuesta para vos</p>
             <h3>Automatización de procesos</h3>
             <p class="plan-intro">Identifico las tareas repetitivas que consumen horas de tu equipo y las convierto en procesos automáticos, confiables y documentados.</p>
             <dl class="incl">
@@ -187,43 +174,38 @@
     </div>
   </section>
 
-  <!-- MARQUESINA -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Soporte SAP Basis</span><span>Java y Spring Boot</span><span>Automatización con Python</span><span>Sistemas a medida</span><span>Páginas web</span><span>Tiendas online</span><span>Bases de datos SQL</span><span>Apps Android</span>
-      <span>Soporte SAP Basis</span><span>Java y Spring Boot</span><span>Automatización con Python</span><span>Sistemas a medida</span><span>Páginas web</span><span>Tiendas online</span><span>Bases de datos SQL</span><span>Apps Android</span>
+<!-- ESPECIALIDADES -->
+  <section class="stack-band" aria-label="Especialidades">
+    <div class="wrap">
+      <ul class="stack-list" data-reveal="fade">
+        <li>Soporte SAP Basis</li><li>Java y Spring Boot</li><li>Automatización con Python</li><li>Sistemas a medida</li><li>Páginas web</li><li>Tiendas online</li><li>Bases de datos SQL</li><li>Apps Android</li>
+      </ul>
     </div>
-  </div>
-  <p class="sr-only">Especialidades: soporte SAP Basis, Java y Spring Boot, automatización con Python, sistemas a medida, páginas web, tiendas online, bases de datos SQL y apps Android.</p>
+  </section>
 
   <!-- PROBLEMAS -->
   <section class="section" aria-labelledby="prob-title">
     <div class="wrap">
       <div class="section-head split">
         <div>
-          <p class="eyebrow" data-reveal="fade">02 — Lo que resuelvo</p>
           <h2 class="h2" id="prob-title" data-split>Problemas que me traen seguido.</h2>
         </div>
         <p class="lead" data-reveal style="--d:2">Muchas veces el problema es más chico de lo que parece. Estos son algunos de los que más escucho, y cómo los encaro.</p>
       </div>
       <div class="problems">
         <article class="card prob spot" data-reveal>
-          <span class="num">01</span>
           <blockquote>“Todos los lunes armo el mismo Excel a mano.”</blockquote>
           <p>Lo automatizo. Un programa junta los datos, arma el informe y te lo manda por mail. Vos solo lo leés.</p>
         </article>
         <article class="card prob spot" data-reveal style="--d:1">
-          <span class="num">02</span>
           <blockquote>“Los clientes me preguntan lo mismo todo el día por WhatsApp.”</blockquote>
           <p>Una web que responda por vos: qué vendés, cuánto sale y cómo comprar, con el botón para escribirte cuando ya están decididos.</p>
         </article>
         <article class="card prob spot" data-reveal>
-          <span class="num">03</span>
           <blockquote>“Llevamos los pedidos en un cuaderno y se pierden cosas.”</blockquote>
           <p>Un sistema simple a medida: pedidos, stock y clientes en un solo lugar, desde el navegador y sin instalar nada.</p>
         </article>
         <article class="card prob spot" data-reveal style="--d:1">
-          <span class="num">04</span>
           <blockquote>“Se nos trabó un proceso en SAP y nadie sabe por qué.”</blockquote>
           <p>Lo investigo como en cualquier incidente: jobs, logs y transportes, hasta encontrar la causa y dejarla documentada.</p>
         </article>
@@ -236,12 +218,11 @@
     <div class="glow glow-gold" data-parallax="-0.12" aria-hidden="true"></div>
     <div class="wrap cta-inner">
       <div>
-        <p class="eyebrow" data-reveal="fade">03 — Siguiente paso</p>
-        <h2 class="h2" id="cta-title" data-split style="margin-top:16px">Primera consulta sin cargo, 30 minutos.</h2>
+        <h2 class="h2" id="cta-title" data-split>Primera consulta sin cargo, 30 minutos.</h2>
       </div>
-      <div class="hero-actions" data-reveal style="--d:2;margin-top:0">
-        <a class="btn btn-gold" href="contacto.html#agenda" data-magnetic><span class="btn-label">Agendar una consulta<svg class="i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
-        <a class="btn btn-ghost" href="servicios.html" data-magnetic><span class="btn-label">Ver servicios</span></a>
+      <div class="hero-actions" data-reveal style="--d:2">
+        <a class="btn btn-gold" href="contacto.html#agenda"><span class="btn-label">Agendar una consulta<svg class="i-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="btn btn-ghost" href="servicios.html"><span class="btn-label">Ver servicios</span></a>
       </div>
     </div>
   </section>
@@ -249,35 +230,23 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-cta">
-      <p class="eyebrow on-dark">¿Hablamos?</p>
-      <p class="display"><a href="contacto.html">Escribime<svg aria-hidden="true"><use href="#i-arrow-ur"/></svg></a></p>
-      <p class="lead">Escribime por donde te quede más cómodo. Si es por WhatsApp, contame en un mensaje qué necesitás y arrancamos desde ahí.</p>
-    </div>
-    <div class="footer-grid">
-      <div><img class="footer-logo" src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></div>
-      <div>
-        <h4>Sitio</h4>
-        <ul><li><a href="index.html">Inicio</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="perfil.html">Perfil</a></li><li><a href="presupuesto.html">Presupuesto</a></li><li><a href="contacto.html">Contacto</a></li></ul>
-      </div>
-      <div>
-        <h4>Contacto</h4>
-        <ul>
-          <li><a class="js-wa" href="https://wa.me/5491168489382" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a class="js-tel" href="tel:+5491168489382">+54 9 11 6848-9382</a></li>
-          <li data-cfg="email"><a class="js-mail" href="#">Email</a></li>
-          <li data-cfg="linkedin"><a class="js-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li data-cfg="github"><a class="js-github" href="#" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Certificación SAP</h4>
-        <ul><li><a href="https://www.credly.com/badges/6f3ff51b-3b55-488f-a8b8-64bc88a816f0" target="_blank" rel="noopener">Ver en Credly</a></li></ul>
+    <div class="footer-top">
+      <a class="footer-brand" href="index.html" aria-label="Santiago Nievas, inicio"><img src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></a>
+      <nav class="footer-nav" aria-label="Pie de página">
+        <a href="index.html">Inicio</a><a href="servicios.html">Servicios</a><a href="perfil.html">Perfil</a><a href="presupuesto.html">Presupuesto</a><a href="contacto.html">Contacto</a>
+      </nav>
+      <div class="footer-contact">
+        <a class="js-wa" href="https://wa.me/5491168489382" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+        <a class="js-tel js-tel-text" href="tel:+5491168489382">+54 9 11 6848-9382</a>
+        <a class="js-mail" href="#" data-cfg="email">Email</a>
+        <a class="js-linkedin" href="#" target="_blank" rel="noopener" data-cfg="linkedin">LinkedIn</a>
+        <a class="js-github" href="#" target="_blank" rel="noopener" data-cfg="github">GitHub</a>
+        <a href="https://www.credly.com/badges/6f3ff51b-3b55-488f-a8b8-64bc88a816f0" target="_blank" rel="noopener">Certificación SAP</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Santiago Nievas · Buenos Aires, Argentina</span>
-      <span>Hecho a medida, sin plantillas.</span>
+      <span>Desarrollado junto con <a href="https://axelsalomon.com" target="_blank" rel="noopener">Axel Salomón</a></span>
     </div>
   </div>
 </footer>
