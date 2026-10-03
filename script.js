@@ -34,10 +34,6 @@
   var safe = function (fn, name) {
     try { fn(); } catch (err) { console.error('[init:' + name + ']', err); }
   };
-  var store = {
-    get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-    set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* almacenamiento bloqueado */ } }
-  };
 
   function waUrl(text) {
     return 'https://wa.me/' + WHATSAPP_NUMBER + (text ? '?text=' + encodeURIComponent(text) : '');
@@ -51,9 +47,9 @@
     return [intro, ''].concat(lines).join('\n');
   }
 
-  var INTRO_DELAY = root.classList.contains('entering') ? 380
-    : root.classList.contains('no-pl') ? 60
-    : prefersReduced() ? 650 : 2050;
+  // Cuándo empieza a revelarse la página: al terminar de armarse el logo del preloader.
+  var INTRO_DELAY = prefersReduced() ? 650
+    : root.classList.contains('pl-fast') ? 1250 : 2050;
 
   /* ---------- Contacto: enlaces centralizados ---------- */
   function initContact() {
@@ -77,7 +73,6 @@
     var pl = $('.preloader');
     if (!pl) { return; }
     var remove = function () { if (pl.parentNode) { pl.parentNode.removeChild(pl); } };
-    if (root.classList.contains('no-pl')) { remove(); return; }
     pl.addEventListener('animationend', function (e) { if (e.target === pl) { remove(); } });
     window.setTimeout(remove, INTRO_DELAY + 1400); // red de seguridad
   }
@@ -97,15 +92,13 @@
       if (!/\.html?$/.test(url.pathname) && url.pathname.slice(-1) !== '/') { return; }
       if (prefersReduced()) { return; }
       e.preventDefault();
-      store.set('sn-nav', '1');
       curtain.classList.add('is-leaving');
-      window.setTimeout(function () { location.href = url.href; }, 560);
+      window.setTimeout(function () { location.href = url.href; }, 500);
     });
     // Volver con el botón "atrás" (bfcache): limpiar estados
     window.addEventListener('pageshow', function (e) {
       if (e.persisted) {
         curtain.classList.remove('is-leaving');
-        root.classList.remove('entering');
         $$('.btn.is-loading, .btn.is-done').forEach(resetButton);
       }
     });
@@ -192,7 +185,7 @@
 
   /* ---------- Revelado al hacer scroll ---------- */
   function initReveal() {
-    var items = $$('[data-reveal], [data-split]');
+    var items = $$('[data-reveal], [data-split], [data-assemble]');
     var show = function (el) { el.classList.add('is-in'); };
     if (!('IntersectionObserver' in window)) { items.forEach(show); return; }
     var io = new IntersectionObserver(function (entries) {
@@ -235,11 +228,12 @@
     update();
   }
 
-  /* ---------- Logo del héroe en capas que siguen al cursor ---------- */
+  /* ---------- Isotipos en capas que siguen al cursor (con suavidad) ---------- */
   function initTilt() {
-    var mark = $('[data-tilt]');
-    if (!mark || !finePointer || prefersReduced()) { return; }
-    var layers = $$('img[data-depth]', mark);
+    var marks = $$('[data-tilt]');
+    if (!marks.length || !finePointer || prefersReduced()) { return; }
+    var layers = [];
+    marks.forEach(function (m) { layers = layers.concat($$('[data-depth]', m)); });
     var target = { x: 0, y: 0 };
     var cur = { x: 0, y: 0 };
     var running = false;

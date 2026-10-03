@@ -10,7 +10,8 @@ Rediseño total del sitio anterior (`../index.html` + `../pagos.css`, que quedan
 - **Animar solo `transform` y `opacity`.** Respetar `prefers-reduced-motion` (bloque al final de `styles.css` + chequeos `prefersReduced()` en JS).
 - **El contenido va hardcodeado en el HTML;** JS solo lo mejora. Si JS falla, la página se lee igual (red de seguridad: `.js:not(.reveal-on) [data-reveal]` muestra todo a los 6 s).
 - Cada init de JS corre envuelto en `safe(fn, nombre)`: si uno falla, los demás siguen.
-- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261003`).
+- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261004`).
+- **Deploy:** GitHub Pages desde `main` (raíz) → https://axeljaviersalomon.github.io/Santiiweb/. Push = deploy.
 - `.htaccess` en la raíz: HTML/CSS/JS sin caché, imágenes 1 mes (Apache/LiteSpeed).
 - Textos en **español argentino (voseo)**, conservados del sitio original. No inventar copy de marketing.
 
@@ -26,7 +27,9 @@ sitio/
   script.js         Todo el JS
   .htaccess
   assets/brand/     Logos en WebP + capas del isotipo para animar + favicon.png
+  assets/hero/      Fondos de los héroes (uno por página), fotos CC0 de Openverse (StockSnap / rawpixel), WebP 1600 px desaturadas
 ```
+Nav: Inicio · Servicios · Perfil · Presupuesto · Contacto (header compacto de 64 px, sin subtítulo en la marca).
 Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están **duplicados en las 5 páginas**: si cambiás uno, cambialo en todas. (`aria-current="page"` solo en la nav del header y del menú, no en el footer).
 
 ## Constantes clave (inicio de `script.js`)
@@ -49,8 +52,13 @@ Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están 
 - Breakpoints de referencia: 375 / 768 / 960 (nav de escritorio) / 1000 (cotizador en 2 columnas) / 1440.
 
 ## Animaciones
-- **Preloader** (solo en la primera visita de la sesión, `sessionStorage 'sn-seen'`): el isotipo se arma por capas (`mark-s-light`, `mark-g-bar`, `mark-g-wedge`, `mark-g-bl`, separadas del PNG original con Pillow), entra el nombre, se dibuja la línea dorada y la pantalla sube. Todo en CSS keyframes (~2,3 s). El script inline del `<head>` decide `no-pl` / `entering` antes del primer pintado.
-- **Cortina entre páginas:** al hacer clic en un link interno, guarda `sn-nav` y baja la cortina (560 ms). La página nueva arranca tapada y la cortina se va (`.entering`). Con movimiento reducido no hay cortina.
+- **Preloader en todas las páginas:** el isotipo se arma por capas (`mark-s-light`, `mark-g-bar`, `mark-g-wedge`, `mark-g-bl`), entra el nombre, se dibuja la línea dorada y la pantalla sube. CSS keyframes escalados por `--k`: primera visita de la sesión completa (~2,3 s); después (`.pl-fast`, decidido por el script inline del `<head>` con `sessionStorage 'sn-seen'`) al 60 %. `INTRO_DELAY` en JS acompaña esos tiempos.
+- **Cortina de salida:** al hacer clic en un link interno sube una cortina navy (500 ms) y la página nueva arranca con el preloader, así se ve continuo. Con movimiento reducido no hay cortina.
+- **Héroes con foto:** `.hero-bg` (parallax) bajo un velo navy (`.hero::after`); la foto entra con zoom lento cuando aparece `.is-ready`.
+- **Panel "Siguiente paso"** (`.cta-panel`, en Inicio, Servicios y Perfil): navy con esquina cortada, isotipo grande que se arma por capas al entrar en pantalla (`data-assemble`) y sigue al cursor (`data-tilt` + `data-depth` en los `span.tilt`).
+- **Cómo trabajamos:** escalera ascendente (cada paso sube un escalón, entra desde abajo en orden y dibuja su peldaño dorado).
+- **Botones:** hover sutil, barrido del tono de hover con `scaleX` + flecha que avanza 4 px. Nada gira.
+- Texto sobre fondo oscuro en blanco (`--on-dark #FFF`, `--on-dark-muted` al 86 %); eyebrows con guion dorado.
 - Revelado por scroll (`data-reveal`, `--d` para escalonar), titulares por palabra (`data-split`), parallax (`data-parallax="factor"`), isotipo del héroe que sigue al cursor (`data-tilt` + `data-depth`), botones magnéticos (`data-magnetic`), spotlight (`.spot`), contador (`data-count`), header que se oculta al bajar, barra de progreso.
 
 ## Pendiente / decisiones del usuario
