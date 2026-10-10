@@ -11,9 +11,9 @@
 <meta property="og:description" content="Calculá al instante una estimación para tu web, tienda, automatización, sistema a medida o soporte SAP, y enviá tu pedido por WhatsApp.">
 <meta property="og:image" content="assets/brand/logo-completo.webp">
 <link rel="icon" type="image/png" href="assets/brand/favicon.png">
-<link rel="stylesheet" href="styles.css?v=20261005">
+<link rel="stylesheet" href="styles.css?v=20261010">
 <script>(function(h){h.classList.add('js');try{var s=sessionStorage;if(s.getItem('sn-seen')){h.classList.add('pl-fast')}s.setItem('sn-seen','1')}catch(e){h.classList.add('pl-fast')}})(document.documentElement);</script>
-<script src="script.js?v=20261005" defer></script>
+<script src="script.js?v=20261010" defer></script>
 </head>
 <body data-page="presupuesto">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -88,10 +88,8 @@
 <main id="main">
   <section class="hero hero-page" aria-labelledby="hero-title">
     <div class="hero-bg" data-parallax="0.12" aria-hidden="true"><img src="assets/hero/presupuesto.webp" alt="" width="1600" height="1000" fetchpriority="high"></div>
-    <div class="glow glow-gold" data-parallax="-0.15" aria-hidden="true"></div>
     <div class="wrap">
-      <p class="eyebrow on-dark" data-reveal="fade">Presupuesto</p>
-      <h1 class="display" id="hero-title" data-split>Calculá tu presupuesto.</h1>
+      <h1 class="display" id="hero-title" data-split>Calculá tu presupuesto</h1>
       <p class="lead" data-reveal style="--d:4">Elegí el servicio, el tamaño y para cuándo lo necesitás. Te muestro al instante una estimación, y con tus datos te armo la propuesta con precio cerrado.</p>
     </div>
   </section>
@@ -107,7 +105,7 @@
             <div class="opt-chip"><input type="radio" name="servicio" id="s-auto" value="auto"><label for="s-auto">Automatización</label></div>
             <div class="opt-chip"><input type="radio" name="servicio" id="s-sistema" value="sistema"><label for="s-sistema">Sistema a medida</label></div>
             <div class="opt-chip"><input type="radio" name="servicio" id="s-sap" value="sap"><label for="s-sap">Soporte SAP Basis</label></div>
-            <div class="opt-chip"><input type="radio" name="servicio" id="s-nose" value="nose"><label for="s-nose">Consulta inicial</label></div>
+            <div class="opt-chip"><input type="radio" name="servicio" id="s-nose" value="nose"><label for="s-nose">Consulta inicial<small>sin cargo</small></label></div>
           </div>
         </fieldset>
 
@@ -168,7 +166,6 @@
       </form>
 
       <aside class="estimate dark" aria-live="polite" data-reveal style="--d:2">
-        <div class="glow glow-gold" aria-hidden="true"></div>
         <p class="eyebrow">Estimación orientativa</p>
         <p class="est-amount" id="estAmount">USD 600 a 1.000</p>
         <ul class="est-lines">
@@ -176,7 +173,7 @@
           <li><span>Base</span><b id="estBase">USD 600 a 1.000</b></li>
           <li><span>Plazo</span><b id="estTime">Normal · <span class="est-adj" id="estAdj">Sin recargo</span></b></li>
         </ul>
-        <p class="est-note">El precio final, cerrado y por escrito va en la propuesta. Podés pagar en pesos al tipo de cambio del día, en dólares o en cripto.</p>
+        <p class="est-note">La consulta inicial no se cobra. El precio final, cerrado y por escrito, va en la propuesta. Podés pagar en pesos al tipo de cambio del día, en dólares o en cripto.</p>
       </aside>
     </div>
   </section>
@@ -187,7 +184,7 @@
     <div class="footer-cta">
       <p class="eyebrow on-dark">¿Hablamos?</p>
       <p class="display"><a href="contacto.html">Escribime<svg aria-hidden="true"><use href="#i-arrow-ur"/></svg></a></p>
-      <p class="lead">Escribime por donde te quede más cómodo. Si es por WhatsApp, contame en un mensaje qué necesitás y arrancamos desde ahí.</p>
+      <p class="lead">Contame en un mensaje qué necesitás y lo vemos. Respondo en el día, de lunes a viernes, y la primera consulta es sin cargo.</p>
     </div>
     <div class="footer-grid">
       <div><img class="footer-logo" src="assets/brand/logo-completo-claro.webp" alt="Santiago Nievas, programador y consultor SAP Basis" width="812" height="496" loading="lazy"></div>
@@ -212,7 +209,6 @@
     </div>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> Santiago Nievas · Buenos Aires, Argentina</span>
-      <span>Hecho a medida, sin plantillas.</span>
     </div>
   </div>
 </footer>

@@ -10,7 +10,7 @@ Rediseño total del sitio anterior (`../index.html` + `../pagos.css`, que quedan
 - **Animar solo `transform` y `opacity`.** Respetar `prefers-reduced-motion` (bloque al final de `styles.css` + chequeos `prefersReduced()` en JS).
 - **El contenido va hardcodeado en el HTML;** JS solo lo mejora. Si JS falla, la página se lee igual (red de seguridad: `.js:not(.reveal-on) [data-reveal]` muestra todo a los 6 s).
 - Cada init de JS corre envuelto en `safe(fn, nombre)`: si uno falla, los demás siguen.
-- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261004`).
+- **Cache-buster `?v=AAAAMMDD`** en `styles.css` y `script.js` de **las 5 páginas**. Subirlo en cada deploy (hoy: `20261010`).
 - **Deploy:** GitHub Pages desde `main` (raíz) → https://axeljaviersalomon.github.io/Santiiweb/. Push = deploy.
 - `.htaccess` en la raíz: HTML/CSS/JS sin caché, imágenes 1 mes (Apache/LiteSpeed).
 - Textos en **español argentino (voseo)**, conservados del sitio original. No inventar copy de marketing.
@@ -18,15 +18,16 @@ Rediseño total del sitio anterior (`../index.html` + `../pagos.css`, que quedan
 ## Estructura
 ```
 sitio/
-  index.html        Inicio: héroe centrado, sin logo, con frase interactiva "Tengo [x] y necesito [y]" → propuesta + form rápido WhatsApp, marquesina, problemas, CTA
+  index.html        Inicio: héroe con frase "Tengo [x] y necesito [y]" en bloques giratorios → banda "La primera consulta no se cobra" → propuesta + form rápido WhatsApp, marquesina, problemas, credenciales SAP, CTA
   servicios.html    Qué hago (4 servicios) + Cómo trabajamos (4 pasos) + formas de pago
-  perfil.html       Bento: SAP Basis, +4 años, certificación (Credly), incidentes, desarrollador, código, UTN + frase
+  perfil.html       Bento: SAP Basis, +4 años, certificación SAP a lo ancho (#certificacion: insignia + qué acredita), incidentes, UTN (#formacion), desarrollador, código + frase
   presupuesto.html  Cotizador (servicio / tamaño / plazo → estimación en vivo) + datos → WhatsApp  ← FORMULARIO PRINCIPAL
   contacto.html     Canales + agenda de consulta (turno por WhatsApp) + preguntas frecuentes
   styles.css        Todo el CSS (tokens en :root)
   script.js         Todo el JS
   .htaccess
   assets/brand/     Logos en WebP + capas del isotipo para animar + favicon.png
+  assets/cert/      Insignia oficial de la certificación SAP HANA 2.0 SPS05 (PNG de Credly)
   assets/hero/      Fondos de los héroes (uno por página), fotos CC0 de Openverse (StockSnap / rawpixel), WebP 1600 px desaturadas
 ```
 Nav: Inicio · Servicios · Perfil · Presupuesto · Contacto (header compacto de 64 px, sin subtítulo en la marca).
@@ -51,7 +52,13 @@ Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están 
 - Motivo de marca: **esquina cortada + cuña dorada** en las tarjetas (`.card`, `--cut`), que retoma la cuña del isotipo. Los héroes van centrados y sin retícula decorativa. Botones cuadrados (`border-radius: 0`) con hover clásico (solo cambia el fondo).
 - Breakpoints de referencia: 375 / 768 / 960 (nav de escritorio) / 1000 (cotizador en 2 columnas) / 1440.
 
+## Consulta sin cargo y SAP (pedido del cliente, 2026-10-10)
+- La primera consulta **sin cargo** tiene que verse siempre: banda dorada `.free-band` (Inicio y Servicios), primer dato del héroe, CTAs "Agendar consulta sin cargo", primera pregunta del FAQ y etiqueta en la agenda.
+- SAP Basis, la certificación y la UTN van destacados (sección de credenciales en Inicio, tarjetas grandes en Perfil).
+- Sin guiones decorativos en eyebrows ni viñetas, sin brillos radiales (`.glow`), sin punto verde "Disponible", sin punto final en titulares. Evitar muletillas tipo "sin vueltas", "del otro lado", "no X, sino Y".
+
 ## Animaciones
+- **Frase del héroe:** dos prismas de 4 caras (`.prism`) que giran hacia arriba cada 2,5 s (`PAIRS` y `PRISM_EVERY` en `script.js`); la propuesta de abajo sigue al par visible. Se pausa fuera de pantalla, con el mouse encima, al elegir un punto o con el botón de pausa. Con movimiento reducido no gira sola.
 - **Preloader en todas las páginas:** el isotipo se arma por capas (`mark-s-light`, `mark-g-bar`, `mark-g-wedge`, `mark-g-bl`), entra el nombre, se dibuja la línea dorada y la pantalla sube. CSS keyframes escalados por `--k`: primera visita de la sesión completa (~2,3 s); después (`.pl-fast`, decidido por el script inline del `<head>` con `sessionStorage 'sn-seen'`) al 60 %. `INTRO_DELAY` en JS acompaña esos tiempos.
 - **Cortina de salida:** al hacer clic en un link interno sube una cortina navy (500 ms) y la página nueva arranca con el preloader, así se ve continuo. Con movimiento reducido no hay cortina.
 - **Héroes con foto:** `.hero-bg` (parallax) bajo un velo navy (`.hero::after`); la foto entra con zoom lento cuando aparece `.is-ready`.
@@ -70,3 +77,9 @@ Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están 
 ## Cómo probar
 `python -m http.server 8765` dentro de `sitio/` → http://localhost:8765/. También anda con doble clic en `index.html`.
 Revisar: consola sin errores, enviar los formularios vacíos y con datos inválidos, y que el link `wa.me` decodificado tenga un renglón por campo.
+
+## Estado al 2026-10-02
+- Último commit: `c7c1ead` (Contacto: logo sin deformar y número de WhatsApp oculto en textos visibles). Rama `main`, deploy por push a GitHub Pages.
+- En la raíz hay PNG sueltos sin commitear (`favicon.png`, `logo-completo*.png`, `marca*.png`): son originales de logo; los que usa el sitio están en `assets/brand/` (WebP).
+- `.claude/` es config local, no va al deploy.
+- Exportado el proyecto completo en zip (`santi-weeb.zip`, en el Escritorio).

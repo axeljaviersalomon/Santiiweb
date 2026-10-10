@@ -407,7 +407,7 @@
   ];
   var PLANS = {
     web: { title: 'Página web profesional',
-      intro: 'Una web pensada para que quien entra entienda rápido qué ofrecés y te contacte. Diseño a medida, sin plantillas genéricas, preparada para celular y para aparecer en Google.',
+      intro: 'Una web pensada para que quien entra entienda rápido qué ofrecés y te contacte. Diseño propio, preparada para celular y para aparecer en Google.',
       items: [['Diseño a medida', 'Estructura y textos pensados para tu cliente, con tu identidad visual.'],
         ['Contacto directo', 'WhatsApp, formulario y ubicación para que te escriban en un clic.'],
         ['Rápida y adaptable', 'Carga en pocos segundos y se ve bien en cualquier pantalla.'],
@@ -423,7 +423,7 @@
         ['Seguridad', 'Certificado SSL; la tienda nunca guarda datos de tarjetas.']],
       first: 'Revisamos tus productos, cómo entregás y cómo cobrás hoy para definir el alcance.' },
     auto: { title: 'Automatización de procesos',
-      intro: 'Identifico las tareas repetitivas que consumen horas de tu equipo y las convierto en procesos automáticos, confiables y documentados.',
+      intro: 'Identifico las tareas repetitivas que consumen horas de tu equipo y las convierto en procesos automáticos que quedan documentados.',
       items: [['Relevamiento', 'Medimos cuánto tiempo y cuántos errores genera hoy la tarea.'],
         ['Desarrollo', 'Programas en Python o Java que procesan planillas, archivos, informes o datos.'],
         ['Integraciones', 'Conexión con otros sistemas, bases de datos y correo.'],
@@ -431,7 +431,7 @@
         ['Documentación', 'Instrucciones claras para que tu equipo lo use y lo mantenga.']],
       first: 'Me mostrás la tarea una vez, tal cual la hacen hoy. Con eso estimo el ahorro y el esfuerzo.' },
     sistema: { title: 'Sistema a medida',
-      intro: 'Software diseñado alrededor de cómo trabaja tu negocio, no al revés. Centraliza la información y reemplaza planillas sueltas y cuadernos.',
+      intro: 'Software pensado para la forma en que ya trabaja tu negocio. Centraliza la información y reemplaza planillas sueltas y cuadernos.',
       items: [['Análisis funcional', 'Entiendo tu proceso actual y defino qué tiene que resolver el sistema.'],
         ['Backend sólido', 'Java y Spring Boot con base de datos SQL, pensado para crecer.'],
         ['Interfaz web', 'Se usa desde el navegador, sin instalar nada, en compu o celular.'],
@@ -439,19 +439,19 @@
         ['Capacitación y soporte', 'Te acompaño en el arranque y después de la entrega.']],
       first: 'Relevamos cómo registrás hoy pedidos, stock o clientes, aunque sea en papel o Excel, y definimos la primera versión.' },
     sap: { title: 'Soporte SAP Basis',
-      intro: 'Soporte técnico para entornos SAP, con más de cuatro años de experiencia en servicios AMS y certificación SAP.',
+      intro: 'Soporte técnico para entornos SAP, con más de cuatro años de experiencia en servicios AMS y certificación oficial de SAP en SAP HANA 2.0.',
       items: [['Monitoreo proactivo', 'Procesos en segundo plano, logs y alertas antes de que impacten en el negocio.'],
         ['Gestión de incidentes', 'Diagnóstico, resolución y seguimiento hasta el cierre, con evidencia.'],
         ['Transportes', 'Control y seguimiento de cambios entre ambientes.'],
         ['Documentación', 'Procedimientos e informes técnicos para tu equipo.'],
         ['Coordinación', 'Comunicación con equipos funcionales, de desarrollo y usuarios.']],
       first: 'Revisamos tu entorno y definimos la modalidad: horas mensuales, tareas puntuales o cobertura por un período.' },
-    nose: { title: 'Consulta inicial',
-      intro: 'No hace falta saber el nombre técnico de lo que necesitás. Contame el problema y te digo, con sinceridad, si se puede resolver con tecnología y cómo.',
+    nose: { title: 'Consulta inicial sin cargo',
+      intro: 'No hace falta saber el nombre técnico de lo que necesitás. Contame el problema y te digo si se puede resolver con tecnología y cómo.',
       items: [['Diagnóstico', 'Entiendo qué te está costando tiempo o dinero hoy.'],
         ['Opciones', 'Te propongo alternativas, con sus costos y plazos.'],
-        ['Sinceridad', 'Si no es algo que yo haga, te lo digo y te oriento.']],
-      first: 'Escribime contándome la situación con tus palabras.' }
+        ['Si no es lo mío', 'Te lo digo y te oriento hacia quien lo pueda resolver.']],
+      first: 'Agendás 30 minutos o me escribís contándome la situación con tus palabras. No se cobra.' }
   };
   var fmtNum = function (n) { return Math.round(n).toLocaleString('es-AR'); };
   var usd = function (n) { return 'USD ' + fmtNum(n); };
@@ -461,48 +461,117 @@
     return s[2] ? 'Desde ' + usd(s[1]) + (s[3] ? ' ' + s[3] : '') : 'Sin cargo';
   }
 
-  /* ---------- Inicio: frase interactiva + propuesta ---------- */
+  /* ---------- Inicio: frase con bloques giratorios + propuesta ----------
+     Cada bloque es un prisma de 4 caras que gira hacia arriba (rotateX).
+     Antes de cada giro se escribe el texto siguiente en la cara que va a
+     aparecer. Las dos frases van de a pares y la propuesta de abajo sigue
+     al par visible. Se pausa fuera de pantalla, con el mouse encima o a mano. */
+  var PAIRS = [
+    ['una empresa', 'ayuda con SAP', 'sap'],
+    ['un comercio', 'vender online', 'tienda'],
+    ['una PyME', 'automatizar tareas', 'auto'],
+    ['un emprendimiento', 'una página web', 'web'],
+    ['un estudio profesional', 'un sistema a medida', 'sistema'],
+    ['una duda', 'una consulta sin cargo', 'nose']
+  ];
+  var PRISM_EVERY = 2500;
+
   function initSentence() {
-    var who = $('#who');
-    var need = $('#need');
     var plan = $('#plan');
-    if (!who || !need || !plan) { return; }
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    function sizeSelect(sel) {
-      var cs = getComputedStyle(sel);
-      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
-      var text = sel.options[sel.selectedIndex].text;
-      var spacing = parseFloat(cs.letterSpacing) || 0; // canvas no aplica el tracking negativo
-      var w = ctx.measureText(text).width + spacing * text.length;
-      sel.style.width = Math.ceil(w + parseFloat(cs.fontSize) * 0.95) + 'px';
-    }
-    function planHtml(key) {
+    var prisms = $$('[data-prism]');
+    if (!plan || prisms.length !== 2) { return; }
+    var srText = $('#sentenceText');
+    var ctrl = $('#prismCtrl');
+    var dotsEl = ctrl && $('.prism-dots', ctrl);
+    var pauseBtn = ctrl && $('.prism-pause', ctrl);
+    var state = { i: 0, turns: 0, paused: false, hover: false, visible: true };
+    var timer = null;
+
+    function planHtml(pair) {
+      var key = pair[2];
       var p = PLANS[key];
-      return '<p class="eyebrow">Mi propuesta para vos</p>' +
+      return '<p class="eyebrow">Para ' + esc(pair[0]) + ' que necesita ' + esc(pair[1]) + '</p>' +
         '<h3>' + esc(p.title) + '</h3>' +
         '<p class="plan-intro">' + esc(p.intro) + '</p>' +
         '<dl class="incl">' + p.items.map(function (it) { return '<div><dt>' + esc(it[0]) + '</dt><dd>' + esc(it[1]) + '</dd></div>'; }).join('') + '</dl>' +
-        '<p class="plan-first"><b>Cómo arrancamos.</b> ' + esc(p.first) + '</p>' +
+        '<p class="plan-first"><b>Cómo arrancamos.</b> ' + esc(p.first) + (key === 'nose' ? '' : ' Esa primera charla es sin cargo.') + '</p>' +
         '<div class="plan-foot"><p class="plan-from"><small>Estimación</small>' + esc(fromText(key)) + '</p>' +
         '<a class="link-arrow" href="presupuesto.html?s=' + key + '" id="planCalc"><span>Calcular mi presupuesto</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>';
     }
-    function render(animate) {
-      if (!animate || prefersReduced()) { plan.innerHTML = planHtml(need.value); return; }
+    function renderPlan(animate) {
+      var pair = PAIRS[state.i];
+      if (!animate || prefersReduced()) { plan.innerHTML = planHtml(pair); return; }
       plan.classList.add('is-out');
       window.setTimeout(function () {
-        plan.innerHTML = planHtml(need.value);
+        plan.innerHTML = planHtml(PAIRS[state.i]);
         plan.classList.remove('is-out');
       }, 260);
     }
-    [who, need].forEach(function (sel) {
-      sel.addEventListener('change', function () { sizeSelect(sel); if (sel === need) { render(true); } });
+    function drawDots() {
+      if (!dotsEl) { return; }
+      $$('.prism-dot', dotsEl).forEach(function (d, i) { d.setAttribute('aria-current', String(i === state.i)); });
+    }
+    // Lleva los dos prismas al par "to": escribe la cara entrante y gira 90°.
+    function go(to) {
+      to = (to + PAIRS.length) % PAIRS.length;
+      if (to === state.i) { return; }
+      state.i = to;
+      state.turns++;
+      var face = state.turns % 4;
+      prisms.forEach(function (p, k) {
+        var faces = $$('.face', p);
+        faces[face].textContent = PAIRS[to][k];
+        $('.prism-rot', p).style.setProperty('--turn', String(state.turns));
+      });
+      if (srText) { srText.textContent = 'Tengo ' + PAIRS[to][0] + ' y necesito ' + PAIRS[to][1] + '.'; }
+      drawDots();
+      renderPlan(true);
+    }
+    function running() { return !state.paused && !state.hover && state.visible && !document.hidden && !prefersReduced(); }
+    function schedule() {
+      window.clearTimeout(timer);
+      if (running()) { timer = window.setTimeout(function () { go(state.i + 1); schedule(); }, PRISM_EVERY); }
+    }
+    function setPaused(p) {
+      state.paused = p;
+      if (pauseBtn) {
+        pauseBtn.setAttribute('aria-pressed', String(p));
+        pauseBtn.setAttribute('aria-label', p ? 'Reanudar' : 'Pausar');
+        $('use', pauseBtn).setAttribute('href', p ? '#i-play' : '#i-pause');
+      }
+      schedule();
+    }
+
+    if (ctrl && dotsEl) {
+      dotsEl.innerHTML = PAIRS.map(function (p, i) {
+        return '<button type="button" class="prism-dot" data-i="' + i + '" aria-label="' + esc('Tengo ' + p[0] + ' y necesito ' + p[1]) + '"></button>';
+      }).join('');
+      ctrl.hidden = false;
+      dotsEl.addEventListener('click', function (e) {
+        var b = e.target.closest('.prism-dot');
+        if (!b) { return; }
+        go(+b.getAttribute('data-i'));
+        setPaused(true); // eligió una: queda fija hasta que la reanude
+      });
+      if (pauseBtn) { pauseBtn.addEventListener('click', function () { setPaused(!state.paused); }); }
+    }
+    prisms.forEach(function (p) {
+      p.addEventListener('click', function () { go(state.i + 1); schedule(); });
+      p.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { state.hover = true; schedule(); } });
+      p.addEventListener('pointerleave', function () { state.hover = false; schedule(); });
     });
-    var resize = function () { sizeSelect(who); sizeSelect(need); };
-    resize();
-    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(resize); }
-    window.addEventListener('resize', resize);
-    render(false);
+    var hero = $('.hero-home');
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        state.visible = entries[0].isIntersecting;
+        schedule();
+      }, { threshold: 0.35 }).observe(hero);
+    }
+    document.addEventListener('visibilitychange', schedule);
+    drawDots();
+    renderPlan(false);
+    // Arranca a girar cuando termina la intro
+    window.setTimeout(schedule, INTRO_DELAY + 600);
 
     var form = $('#quickForm');
     if (!form) { return; }
@@ -511,8 +580,8 @@
       e.preventDefault();
       if (!validateForm(form)) { return; }
       var text = buildMessage(WA_GREETING, [
-        ['Tengo', who.options[who.selectedIndex].text],
-        ['Necesito', need.options[need.selectedIndex].text],
+        ['Tengo', PAIRS[state.i][0]],
+        ['Necesito', PAIRS[state.i][1]],
         ['Detalle', $('#quickMsg').value]
       ]);
       sendToWhatsApp(form, $('button[type="submit"]', form), text);
