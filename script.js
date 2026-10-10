@@ -439,7 +439,7 @@
         ['Capacitación y soporte', 'Te acompaño en el arranque y después de la entrega.']],
       first: 'Relevamos cómo registrás hoy pedidos, stock o clientes, aunque sea en papel o Excel, y definimos la primera versión.' },
     sap: { title: 'Soporte SAP Basis',
-      intro: 'Soporte técnico para entornos SAP, con más de cuatro años de experiencia en servicios AMS y certificación oficial de SAP en SAP HANA 2.0.',
+      intro: 'Soporte técnico para entornos SAP, con más de cuatro años de experiencia en servicios AMS y la certificación SAP HANA 2.0 aprobada.',
       items: [['Monitoreo proactivo', 'Procesos en segundo plano, logs y alertas antes de que impacten en el negocio.'],
         ['Gestión de incidentes', 'Diagnóstico, resolución y seguimiento hasta el cierre, con evidencia.'],
         ['Transportes', 'Control y seguimiento de cambios entre ambientes.'],

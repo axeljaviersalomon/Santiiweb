@@ -54,6 +54,7 @@ Header, menú móvil, footer, sprite de íconos SVG, preloader y cortina están 
 
 ## Consulta sin cargo y SAP (pedido del cliente, 2026-10-10)
 - La primera consulta **sin cargo** tiene que verse siempre: banda dorada `.free-band` (Inicio y Servicios), primer dato del héroe, CTAs "Agendar consulta sin cargo", primera pregunta del FAQ y etiqueta en la agenda.
+- **La certificación SAP está vencida y la carrera de la UTN no está terminada.** Se mencionan sin mentir ni exponerlo: "certificación aprobada" (nunca año ni link a Credly, que muestra el vencimiento) y "estudios en la UTN" (nunca "técnico", "título" ni "recibido").
 - SAP Basis, la certificación y la UTN van destacados (sección de credenciales en Inicio, tarjetas grandes en Perfil).
 - Sin guiones decorativos en eyebrows ni viñetas, sin brillos radiales (`.glow`), sin punto verde "Disponible", sin punto final en titulares. Evitar muletillas tipo "sin vueltas", "del otro lado", "no X, sino Y".
 
