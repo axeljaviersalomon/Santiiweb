@@ -166,8 +166,12 @@
     $$('[data-split]').forEach(function (el) {
       if (el.classList.contains('is-split') || el.children.length) { return; }
       var text = el.textContent.trim().replace(/\s+/g, ' ');
-      el.setAttribute('aria-label', text);
       el.textContent = '';
+      // Copia legible para lectores de pantalla (las palabras animadas van ocultas)
+      var sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = text;
+      el.appendChild(sr);
       text.split(' ').forEach(function (word, i) {
         var w = document.createElement('span');
         w.className = 'w';
@@ -461,11 +465,12 @@
     return s[2] ? 'Desde ' + usd(s[1]) + (s[3] ? ' ' + s[3] : '') : 'Sin cargo';
   }
 
-  /* ---------- Inicio: frase con bloques giratorios + propuesta ----------
-     Cada bloque es un prisma de 4 caras que gira hacia arriba (rotateX).
-     Antes de cada giro se escribe el texto siguiente en la cara que va a
-     aparecer. Las dos frases van de a pares y la propuesta de abajo sigue
-     al par visible. Se pausa fuera de pantalla, con el mouse encima o a mano. */
+  /* ---------- Inicio: frase con carteles de paletas + propuesta ----------
+     Cada cartel es un split-flap: dos mitades fijas y dos paletas que giran
+     sobre la bisagra (solo transform). Para cambiar de texto pasan un par de
+     paletas rápidas con otras opciones y cae la final, como en un tablero de
+     aeropuerto. Las dos frases van de a pares y la propuesta de abajo sigue al
+     par visible. Se pausa fuera de pantalla, con el mouse encima o a mano. */
   var PAIRS = [
     ['una empresa', 'ayuda con SAP', 'sap'],
     ['un comercio', 'vender online', 'tienda'],
@@ -474,17 +479,60 @@
     ['un estudio profesional', 'un sistema a medida', 'sistema'],
     ['una duda', 'una consulta sin cargo', 'nose']
   ];
-  var PRISM_EVERY = 2500;
+  var PRISM_EVERY = 3000;     // ms entre un par y el siguiente
+  var FLAP_FAST = 70;         // ms por media paleta en las pasadas rápidas
+  var FLAP_FINAL = 230;       // ms por media paleta en la caída final
+  var FLAP_SPINS = 2;         // paletas rápidas antes de la final
+
+  // Un cartel split-flap: guarda su texto y sabe pasar a otro, con o sin pasadas rápidas.
+  function makeFlap(el) {
+    var halves = $$('.flap-half > span', el); // [top, bottom, foldTop, foldBottom]
+    var api = { text: halves[0].textContent, token: 0, timer: null };
+    function set(i, t) { halves[i].textContent = t; }
+    function one(to, dur, done) {
+      var from = api.text;
+      set(0, to); set(1, from); set(2, from); set(3, to);
+      el.style.setProperty('--fd', dur + 'ms');
+      el.classList.remove('is-flipping');
+      void el.offsetWidth; // reinicia las animaciones
+      el.classList.add('is-flipping');
+      api.text = to;
+      window.clearTimeout(api.timer);
+      api.timer = window.setTimeout(function () {
+        set(1, to);
+        el.classList.remove('is-flipping');
+        if (done) { done(); }
+      }, dur * 2 + 20);
+    }
+    api.show = function (to, spins) {
+      var my = ++api.token; // un pedido nuevo cancela la secuencia anterior
+      if (prefersReduced()) {
+        window.clearTimeout(api.timer);
+        el.classList.remove('is-flipping');
+        api.text = to; set(0, to); set(1, to);
+        return;
+      }
+      var seq = (spins || []).concat([to]);
+      (function next(i) {
+        if (my !== api.token) { return; }
+        var last = i === seq.length - 1;
+        one(seq[i], last ? FLAP_FINAL : FLAP_FAST, last ? null : function () { next(i + 1); });
+      })(0);
+    };
+    return api;
+  }
 
   function initSentence() {
     var plan = $('#plan');
-    var prisms = $$('[data-prism]');
-    if (!plan || prisms.length !== 2) { return; }
+    var flapEls = $$('[data-flap]');
+    if (!plan || flapEls.length !== 2) { return; }
+    var flaps = flapEls.map(makeFlap);
+    var planBox = plan.parentElement;
     var srText = $('#sentenceText');
     var ctrl = $('#prismCtrl');
     var dotsEl = ctrl && $('.prism-dots', ctrl);
     var pauseBtn = ctrl && $('.prism-pause', ctrl);
-    var state = { i: 0, turns: 0, paused: false, hover: false, visible: true };
+    var state = { i: 0, paused: false, hover: false, visible: true };
     var timer = null;
 
     function planHtml(pair) {
@@ -511,18 +559,26 @@
       if (!dotsEl) { return; }
       $$('.prism-dot', dotsEl).forEach(function (d, i) { d.setAttribute('aria-current', String(i === state.i)); });
     }
-    // Lleva los dos prismas al par "to": escribe la cara entrante y gira 90°.
-    function go(to) {
+    // Textos al azar de la misma columna (ni el actual ni el destino) para las pasadas rápidas
+    function spinsFor(k, from, to) {
+      var pool = PAIRS.map(function (p) { return p[k]; }).filter(function (t, i) { return i !== from && i !== to; });
+      var out = [];
+      while (out.length < FLAP_SPINS && pool.length) { out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]); }
+      return out;
+    }
+    // Lleva los dos carteles al par "to". Solo se anuncia a lectores de pantalla
+    // cuando lo elige la persona (la rotación automática no interrumpe).
+    function go(to, byUser) {
       to = (to + PAIRS.length) % PAIRS.length;
       if (to === state.i) { return; }
+      var from = state.i;
       state.i = to;
-      state.turns++;
-      var face = state.turns % 4;
-      prisms.forEach(function (p, k) {
-        var faces = $$('.face', p);
-        faces[face].textContent = PAIRS[to][k];
-        $('.prism-rot', p).style.setProperty('--turn', String(state.turns));
+      flaps.forEach(function (f, k) {
+        var spins = spinsFor(k, from, to);
+        if (k === 0) { f.show(PAIRS[to][k], spins); }
+        else { window.setTimeout(function () { if (state.i === to) { f.show(PAIRS[to][k], spins); } }, prefersReduced() ? 0 : 120); }
       });
+      if (planBox) { planBox.setAttribute('aria-live', byUser ? 'polite' : 'off'); }
       if (srText) { srText.textContent = 'Tengo ' + PAIRS[to][0] + ' y necesito ' + PAIRS[to][1] + '.'; }
       drawDots();
       renderPlan(true);
@@ -550,13 +606,13 @@
       dotsEl.addEventListener('click', function (e) {
         var b = e.target.closest('.prism-dot');
         if (!b) { return; }
-        go(+b.getAttribute('data-i'));
+        go(+b.getAttribute('data-i'), true);
         setPaused(true); // eligió una: queda fija hasta que la reanude
       });
       if (pauseBtn) { pauseBtn.addEventListener('click', function () { setPaused(!state.paused); }); }
     }
-    prisms.forEach(function (p) {
-      p.addEventListener('click', function () { go(state.i + 1); schedule(); });
+    flapEls.forEach(function (p) {
+      p.addEventListener('click', function () { go(state.i + 1, true); schedule(); });
       p.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { state.hover = true; schedule(); } });
       p.addEventListener('pointerleave', function () { state.hover = false; schedule(); });
     });
@@ -801,10 +857,26 @@
       slotErr.textContent = '';
       updateLabel();
     });
-    $('#dayPrev').addEventListener('click', function () { daysEl.scrollBy({ left: -240, behavior: prefersReduced() ? 'auto' : 'smooth' }); });
-    $('#dayNext').addEventListener('click', function () { daysEl.scrollBy({ left: 240, behavior: prefersReduced() ? 'auto' : 'smooth' }); });
+    var prev = $('#dayPrev');
+    var next = $('#dayNext');
+    var step = function () { return Math.max(160, daysEl.clientWidth - 80); };
+    prev.addEventListener('click', function () { daysEl.scrollBy({ left: -step(), behavior: prefersReduced() ? 'auto' : 'smooth' }); });
+    next.addEventListener('click', function () { daysEl.scrollBy({ left: step(), behavior: prefersReduced() ? 'auto' : 'smooth' }); });
+    // Bordes difuminados y flechas desactivadas según haya más días a cada lado
+    function edges() {
+      var max = daysEl.scrollWidth - daysEl.clientWidth;
+      var atStart = daysEl.scrollLeft <= 4;
+      var atEnd = daysEl.scrollLeft >= max - 4;
+      daysEl.classList.toggle('can-left', !atStart);
+      daysEl.classList.toggle('can-right', !atEnd);
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+    }
+    daysEl.addEventListener('scroll', edges, { passive: true });
+    window.addEventListener('resize', edges);
     drawDays();
     drawSlots();
+    edges();
 
     bindValidation(form);
     form.addEventListener('submit', function (e) {
