@@ -531,7 +531,6 @@
     var srText = $('#sentenceText');
     var ctrl = $('#prismCtrl');
     var dotsEl = ctrl && $('.prism-dots', ctrl);
-    var pauseBtn = ctrl && $('.prism-pause', ctrl);
     var state = { i: 0, paused: false, hover: false, visible: true };
     var timer = null;
 
@@ -588,15 +587,7 @@
       window.clearTimeout(timer);
       if (running()) { timer = window.setTimeout(function () { go(state.i + 1); schedule(); }, PRISM_EVERY); }
     }
-    function setPaused(p) {
-      state.paused = p;
-      if (pauseBtn) {
-        pauseBtn.setAttribute('aria-pressed', String(p));
-        pauseBtn.setAttribute('aria-label', p ? 'Reanudar' : 'Pausar');
-        $('use', pauseBtn).setAttribute('href', p ? '#i-play' : '#i-pause');
-      }
-      schedule();
-    }
+    function setPaused(p) { state.paused = p; schedule(); }
 
     if (ctrl && dotsEl) {
       dotsEl.innerHTML = PAIRS.map(function (p, i) {
@@ -607,12 +598,11 @@
         var b = e.target.closest('.prism-dot');
         if (!b) { return; }
         go(+b.getAttribute('data-i'), true);
-        setPaused(true); // eligió una: queda fija hasta que la reanude
+        setPaused(true); // eligió una: queda fija (tocar un cartel la vuelve a hacer girar)
       });
-      if (pauseBtn) { pauseBtn.addEventListener('click', function () { setPaused(!state.paused); }); }
     }
     flapEls.forEach(function (p) {
-      p.addEventListener('click', function () { go(state.i + 1, true); schedule(); });
+      p.addEventListener('click', function () { go(state.i + 1, true); setPaused(false); });
       p.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { state.hover = true; schedule(); } });
       p.addEventListener('pointerleave', function () { state.hover = false; schedule(); });
     });

@@ -361,9 +361,6 @@ body.no-scroll { overflow: hidden; }
 .prism-dot::before { content: ""; width: 8px; height: 8px; background: rgba(255,255,255,.55); transition: transform var(--t-med) var(--ease-out), background-color var(--t-fast); }
 .prism-dot:hover::before { background: rgba(255,255,255,.9); }
 .prism-dot[aria-current="true"]::before { background: var(--gold); transform: scaleX(2.5); }
-.prism-pause { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: var(--on-dark-muted); cursor: pointer; }
-.prism-pause:hover { color: var(--on-dark); }
-.prism-pause svg { width: 16px; height: 16px; }
 
 .hero-meta {
   display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s3) var(--s6); margin-top: clamp(40px, 6vw, 72px);
